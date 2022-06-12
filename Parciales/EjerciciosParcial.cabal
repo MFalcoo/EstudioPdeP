@@ -26,8 +26,10 @@ source-repository head
 library
   exposed-modules:
       Barbaros
+      EscuelitaThanos
       FMI
       HeroessLeyenda
+      Huber
   other-modules:
       Paths_EjerciciosParcial
   hs-source-dirs:
