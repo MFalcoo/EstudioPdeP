@@ -156,7 +156,7 @@ gana ganador perdedor =
 ¿Cuál es el resultado de hacer que presuman dos héroes con reconocimiento 100, ningún artefacto y ninguna tarea realizada?
 -}
 
--- Queda infinitamente presumiendo
+-- Queda infinitamente presumiendo debido a que entraria en una recursividad infinita.
 
 {-Punto 9
 Obviamente, los Dioses no se quedan cruzados de brazos. Al contrario, son ellos quienes imparten terribles misiones ante nuestros héroes. Claro es el ejemplo de Heracles con sus doce tareas, o bien conocidas bajo el nombre de labores. Llamamos labor a un conjunto de tareas que un héroe realiza secuencialmente.
@@ -170,4 +170,4 @@ realizarTareas tareas heroe = foldl realizarTarea heroe tareas
 Si invocamos la función anterior con una labor infinita, ¿se podrá conocer el estado final del héroe? ¿Por qué?
 -}
 
--- No, no se puede!!
+--  No se podra obtener el estado final del heroe debido a que se quedara realizando una cantidad de tarea infinita y jamas arrojara un resultado

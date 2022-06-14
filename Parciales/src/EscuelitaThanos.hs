@@ -108,3 +108,59 @@ tiempo personaje
 
 reducirEdad :: Personaje -> Int
 reducirEdad personaje = (flip div 2) . edad $ personaje
+
+gemaLoca :: Gema -> Gema
+gemaLoca gema personaje = gema . gema $ personaje
+ 
+{-
+Punto 4: (1 punto) Dar un ejemplo de un guantelete de goma con las gemas tiempo, alma que quita la habilidad de “usar Mjolnir” y la gema loca que manipula el poder del alma tratando de eliminar la “programación en Haskell”.
+-}
+
+guanteDeEjemplo :: Guantelete
+guanteDeEjemplo = Guantelete "Goma" [tiempo, alma "usar Mjolnir", gemaLoca (alma "Programacion en Haskell") ]
+
+{-
+Punto 5: (2 puntos). No se puede utilizar recursividad. Generar la función utilizar  que dado una lista de gemas y un enemigo ejecuta el poder de cada una de las gemas que lo componen contra el personaje dado. Indicar cómo se produce el “efecto de lado” sobre la víctima.
+-}
+
+utilizar :: [Gema] -> Personaje -> Personaje
+utilizar listaGemas personaje = foldl utilizarGema personaje listaGemas
+
+utilizarGema :: Personaje -> Gema -> Personaje 
+utilizarGema personaje gema = gema personaje 
+
+{-
+Punto 6: (2 puntos). Resolver utilizando recursividad. Definir la función gemaMasPoderosa que dado un guantelete y una persona obtiene la gema del infinito que produce la pérdida más grande de energía sobre la víctima. 
+-}
+gemaMasPoderosa :: Guantelete -> Personaje -> Gema
+gemaMasPoderosa guantelete personaje = mayorPerdidaDeEnergia personaje (gemas guantelete)
+
+mayorPerdidaDeEnergia :: Personaje -> [Gema] -> Gema
+mayorPerdidaDeEnergia personaje [gema] = gema
+mayorPerdidaDeEnergia personaje (gema1:restoGemas)
+    | energia (gema1 personaje) < energia ((head restoGemas) personaje) = mayorPerdidaDeEnergia personaje (gema1:tail restoGemas)
+    | otherwise                                                         = mayorPerdidaDeEnergia personaje (restoGemas)
+
+{-
+Punto 7: (1 punto) Dada la función generadora de gemas y un guantelete de locos:
+infinitasGemas :: Gema -> [Gema]
+infinitasGemas gema = gema:(infinitasGemas gema)
+
+guanteleteDeLocos :: Guantelete
+guanteleteDeLocos = Guantelete "vesconite" (infinitasGemas tiempo)
+
+Y la función 
+usoLasTresPrimerasGemas :: Guantelete -> Personaje -> Personaje
+usoLasTresPrimerasGemas guantelete = (utilizar . take 3. gemas) guantelete
+
+Justifique si se puede ejecutar, relacionándolo con conceptos vistos en la cursada:
+-gemaMasPoderosa punisher guanteleteDeLocos
+
+esta funcion no se podra ejecutar debido a que al pasarle el guantelete de locos, jamas terminara de usarse la recursividad debido a que 
+es una lista infinita de gemas la que estaremos analizando.
+
+-usoLasTresPrimerasGemas guanteleteDeLocos punisher
+
+en este caso si se ejecutara la funcion, esto se debe a que a pesar de estar trabajando sobre una lista infinita, solo necesitamos de los 3 primeros elementos de la lista y estos se pueden obtener sin recorrer la lista entera.
+-}
+

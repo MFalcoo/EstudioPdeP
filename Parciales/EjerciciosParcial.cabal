@@ -28,8 +28,11 @@ library
       Barbaros
       EscuelitaThanos
       FMI
-      HeroessLeyenda
+      HeroesLeyenda
       Huber
+      LaCasaDePapel
+      Series
+      Vacaciones
   other-modules:
       Paths_EjerciciosParcial
   hs-source-dirs:
